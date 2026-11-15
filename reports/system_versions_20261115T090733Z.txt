@@ -1,0 +1,30 @@
+=== System and Tool Versions ===
+Date (UTC): Sun Nov 15 09:07:33 AM UTC 2026
+
+--- System ---
+Ubuntu 22.04.5 LTS
+6.18.58.1-microsoft-standard-WSL2
+
+--- FreeSurfer / SynthSeg ---
+freesurfer-linux-ubuntu22_x86_64-8.1.0-20250719-f30dfed
+SynthSeg: /usr/local/freesurfer/8.1.0/bin/mri_synthseg
+
+--- FSL ---
+6.0.7.18
+--- ANTs ---
+ANTs Version: 2.6.3.post1-g0e979ef
+
+--- Python ---
+Python 3.12.12
+Executable: /home/chris/fsl/bin/python
+Environment: None
+
+--- TractSeg ---
+Name: TractSeg
+Version: 2.10
+
+--- GPU ---
+NVIDIA GeForce GTX 1650, 560.94
+
+--- Git ---
+7261908f3ce8c621345c90c5c67f9846366db438
