@@ -15,6 +15,8 @@ DATA_DIFFUSION_DERIVATIVES_DIR = DATA_DERIVATIVES_DIR / "diffusion"
 DATA_MTR_DERIVATIVES_DIR = DATA_DERIVATIVES_DIR / "mtr"
 
 SOURCE_MASTER_XLS = DATA_MASTER_DIR / "data_master_2026.xlsx"
+MASTER_DATA_CSV = REPO_ROOT / "data" / "reference" / "data_table_master.csv"
+MASTER_DATA_CSV_SNAPSHOT = REPO_ROOT / "data" / "snapshot" / "data_table_snapshot.csv"
 FIXEL_METRICS_CSV = DATA_DERIVATIVES_DIR / "fixel_analysis" / "tract_metrics.csv"
 
 UNKNOWN = "Unknown"

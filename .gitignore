@@ -1,4 +1,5 @@
 # Custom settings
+data_table_master.csv
 .vscode/*
 !.vscode/settings.json
 *.png
