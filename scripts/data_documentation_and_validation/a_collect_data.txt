@@ -1,0 +1,20 @@
+Imaging data availability - patients
+Total patients: 36
+Total sessions: 66
+
+Available imaging files (sessions):
+T1                66 / 66
+qT1               66 / 66
+FLAIR             63 / 66
+MTR               34 / 66
+FA                66 / 66
+FOD integral      66 / 66
+FOD registered    52 / 66
+
+Sessions per patient:
+Patients   N_sessions
+20         1
+7          2
+5          3
+3          4
+1          5
