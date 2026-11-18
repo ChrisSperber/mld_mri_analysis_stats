@@ -169,11 +169,19 @@ class PathCols:
     TRACT_SLF3_R: str = "PathTract_SLF3_R"
 
 
-def load_nifti(path: str | Path) -> Nifti1Image:
-    """Load NIFTI Wrapper with typechecking to silence Pylance warnings."""
+def load_nifti(path: str | Path, canonical: bool = True) -> Nifti1Image:
+    """Load NIFTI and reorient to RAS+ orientation.
+
+    Args:
+        path: Path to Nifti image.
+        canonical: Set if reorientation to RAS desired. Defaults to true.
+
+    """
     img = nib.load(str(path))
     if not isinstance(img, Nifti1Image):
         raise TypeError("Unexpected image type")
+    if canonical:
+        img = nib.as_closest_canonical(img)
     return img
 
 
