@@ -1,6 +1,7 @@
 # Confidential data
 data_table_master.csv
 b_validate_images.txt
+qc_synthseg_and_t1_fa_registration.pdf
 
 # Custom settings
 .vscode/*
