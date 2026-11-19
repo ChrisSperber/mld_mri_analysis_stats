@@ -1,5 +1,8 @@
-# Custom settings
+# Confidential data
 data_table_master.csv
+b_validate_images.txt
+
+# Custom settings
 .vscode/*
 !.vscode/settings.json
 *.png
