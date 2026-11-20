@@ -18,3 +18,7 @@ Patients   N_sessions
 5          3
 3          4
 1          5
+
+Patients per MLD subtype:
+juvenile             23
+late_infantile       13

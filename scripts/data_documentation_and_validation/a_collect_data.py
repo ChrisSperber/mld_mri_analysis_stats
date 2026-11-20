@@ -183,6 +183,18 @@ report_lines.extend(
 for n_sessions, n_patients in session_distribution.items():
     report_lines.append(f"{n_patients:<10} {n_sessions}")
 
+# Count unique patients per MLD subtype
+subtype_counts = (
+    patient_df.groupby(Cols.MLD_FORM)[Cols.SUBJECT_ID]
+    .nunique()
+    .sort_values(ascending=False)
+)
+
+report_lines.extend(["", "Patients per MLD subtype:"])
+
+for subtype, n_patients in subtype_counts.items():
+    report_lines.append(f"{str(subtype):<20} {n_patients}")
+
 report_path = Path(__file__).with_suffix(".txt")
 report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
 
