@@ -1,5 +1,5 @@
 === System and Tool Versions ===
-Date (UTC): Sun Nov 15 09:07:33 AM UTC 2026
+Date (UTC): Fri Nov 20 09:14:16 AM UTC 2026
 
 --- System ---
 Ubuntu 22.04.5 LTS
@@ -16,8 +16,8 @@ ANTs Version: 2.6.3.post1-g0e979ef
 
 --- Python ---
 Python 3.12.12
-Executable: /home/chris/fsl/bin/python
-Environment: None
+Executable: /home/chris/projects/mld_mri_analysis_stats/.venv/bin/python
+Environment: /home/chris/projects/mld_mri_analysis_stats/.venv
 
 --- TractSeg ---
 Name: TractSeg
@@ -27,4 +27,4 @@ Version: 2.10
 NVIDIA GeForce GTX 1650, 560.94
 
 --- Git ---
-7261908f3ce8c621345c90c5c67f9846366db438
+4cd92829d31e741a916e558700e92d245e98894c
