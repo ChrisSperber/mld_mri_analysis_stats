@@ -8,6 +8,7 @@ qc_synthseg_and_t1_fa_registration.pdf
 !.vscode/settings.json
 *.png
 scratch/
+qc_*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
