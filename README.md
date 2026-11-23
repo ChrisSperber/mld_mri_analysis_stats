@@ -10,19 +10,20 @@ The repository code requires the data master directory "mld_data_master_2026". T
 
 | Folder/File                               | Description                                                     |
 |-------------------------------------------|-----------------------------------------------------------------|
-| `scripts/`                                | Main processing and analysis scripts (Python + Bash)            |
-| └──`data_documentation_and_validation/`   | Tracks available data, prerequisite for all other code          |
-| └──`anatomical_segmentation/`             | T1 segmentation via synthseg and analysis; also generated T1    |
-|                                           |   brain masks and derives the T1-to-FA rigid registration       |
-| └──`tract_segmentation_tractseg/`         | Tract segmentation via Tractseg and analysis                    |
-| `src/`                                    |                                                                 |
-| └──`mld_mri_stats/`                       | Installable Python toolbox (utilities, config paths)            |
 | `data/`                                   |                                                                 |
 | └──`reference/`                           | Locally stored main files. Partially confidential               |
 | └──`snapshot/`                            | Non-confidential documentation of included datasets             |
-| `reports/`                                | Environment logs (e.g., Freesurfer, TractSeg, ANTs)             |
-| `requirements.txt`                        | Python dependencies (from `venv`)                               |
+| `reports/`                                | Environment logs (e.g., Freesurfer, TractSeg, ANTs); various    |
+|                                           |   visual imaging pipeline QC reports, etc.                      |
+| `scripts/`                                | Main processing and analysis scripts (Python + Bash)            |
+| └──`anatomical_segmentation/`             | T1 segmentation via synthseg and analysis; also generates T1    |
+|                                           |   brain masks and derives the T1-to-FA rigid registration       |
+| └──`data_documentation_and_validation/`   | Tracks available data, prerequisite for all other code          |
+| └──`tract_segmentation_tractseg/`         | Tract segmentation via Tractseg and analysis                    |
+| `src/`                                    |                                                                 |
+| └──`mld_mri_stats/`                       | Installable Python toolbox (utilities, config paths)            |
 | `LICENSE`                                 | MIT License                                                     |
+| `requirements.txt`                        | Python dependencies (from `venv`)                               |
 
 ---
 
