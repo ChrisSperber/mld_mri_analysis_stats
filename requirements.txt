@@ -34,6 +34,7 @@ h5py==3.16.0
 hsluv==5.0.5
 identify==2.6.20
 idna==3.20
+ImageIO==2.38.2
 interface_meta==2.0.1
 ipykernel==7.4.0
 ipython==9.18.1
@@ -103,6 +104,7 @@ pyzmq==27.3.0
 rendercanvas==3.0.1
 requests==2.34.2
 rich==15.0.0
+scikit-image==0.26.0
 scikit-learn==1.9.1
 scipy==1.15.3
 seaborn==0.13.2
@@ -113,6 +115,7 @@ stack-data==0.6.3
 statsmodels==0.15.0
 sympy==1.13.1
 threadpoolctl==3.8.0
+tifffile==2026.11.16
 torch==2.5.1
 tornado==6.6.1
 tqdm==4.70.1

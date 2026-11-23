@@ -4,8 +4,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import nibabel as nib
+import numpy as np
 import pandas as pd
 from nibabel.nifti1 import Nifti1Image
+from scipy import ndimage as ndi
+from skimage.graph import MCP_Geometric
 
 from mld_mri_stats.config import DATA_MASTER_DIR, NOT_AVAILABLE
 
@@ -45,6 +48,19 @@ SNAPSHOT_COLS = [
     Cols.GROUP,
     Cols.MLD_MRI_SCORE,
     Cols.GMFC,
+]
+
+# labels that are to be ignored in the voronoi subparcellation of white matter;
+# white mitter itself must also be ignored
+WHITE_MATTER = "White_Matter"
+CEREBELLUM = "Cerebellum"
+BRAINSTEM = "Brainstem"
+CSF = "Ventricle_CSF"
+NON_REQUIRED_LABEL_STRUCTURES_WM_SUBPARCELLATION = [
+    WHITE_MATTER,
+    CEREBELLUM,
+    BRAINSTEM,
+    CSF,
 ]
 
 
@@ -238,3 +254,98 @@ def find_unique_path(
         )
 
     return str(matches[0].relative_to(DATA_MASTER_DIR)) if matches else NOT_AVAILABLE
+
+
+def merge_hemisphere_labelmaps(
+    left: np.ndarray,
+    right: np.ndarray,
+) -> np.ndarray:
+    """Merge non-overlapping left and right hemisphere label maps.
+
+    Combines two integer label arrays into a single array, preserving all
+    non-zero labels. Zero represents background. Raises an error if the
+    arrays have different shapes, non-integer types, or overlapping labels.
+
+    """
+    if left.shape != right.shape:
+        raise ValueError("Shapes must match.")
+    if not np.issubdtype(left.dtype, np.integer) or not np.issubdtype(
+        right.dtype, np.integer
+    ):
+        raise TypeError("Inputs should be integer label images.")
+
+    lmask = left != 0
+    rmask = right != 0
+    overlap = lmask & rmask
+    n_overlap = int(overlap.sum())
+
+    if n_overlap:
+        raise ValueError(f"Left/right overlap at {n_overlap} voxels.")
+
+    return np.where(lmask, left, right)
+
+
+def geodesic_subparcellate(
+    wm_mask: np.ndarray,
+    seed_labels: np.ndarray,
+    spacing: tuple[float, ...],
+) -> np.ndarray:
+    """Parcellate white matter by shortest paths to anatomical seed regions.
+
+    Computes geodesic distances through white matter using 26-connectivity.
+    The WM mask is dilated by one voxel to include bordering anatomical seeds.
+    Other tissues, including CSF, remain impassable.
+
+    Parameters
+    ----------
+    wm_mask : np.ndarray
+        Boolean mask of the white matter to parcellate.
+    seed_labels : np.ndarray
+        Anatomical label image. Zero represents background.
+    spacing : tuple of float
+        Voxel dimensions in mm, in array axis order.
+
+    Returns
+    -------
+    np.ndarray
+        Integer label image containing the nearest anatomical seed label
+        for each reachable WM voxel. Other voxels remain zero.
+
+    """
+    # Define traversable voxels: WM and immediately adjacent seeds.
+    dilated = ndi.binary_dilation(wm_mask)
+    seed_mask = dilated & (seed_labels != 0)
+    allowed = wm_mask | seed_mask
+
+    costs = np.where(allowed, 1.0, np.inf)
+    starts = np.argwhere(seed_mask)
+
+    # Compute shortest paths from all seeds.
+    mcp = MCP_Geometric(costs, fully_connected=True, sampling=spacing)
+    _, traceback = mcp.find_costs(starts=starts)
+
+    # Construct a map pointing each voxel to its predecessor.
+    parents = np.arange(seed_labels.size, dtype=np.int32).reshape(seed_labels.shape)
+
+    for direction, offset in enumerate(mcp.offsets):
+        coords = np.where(traceback == direction)
+        predecessor = tuple(
+            coord - step for coord, step in zip(coords, offset, strict=True)
+        )
+        parents[coords] = np.ravel_multi_index(predecessor, seed_labels.shape)
+
+    # Follow predecessors until all voxels point to their originating seed.
+    roots = parents.ravel()
+
+    while True:
+        next_roots = roots[roots]
+        if np.array_equal(next_roots, roots):
+            break
+        roots = next_roots
+
+    # Assign the originating seed labels to WM voxels.
+    nearest_labels = seed_labels.ravel()[roots].reshape(seed_labels.shape)
+    result = np.zeros(seed_labels.shape, dtype=np.int32)
+    result[wm_mask] = nearest_labels[wm_mask]
+
+    return result
