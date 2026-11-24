@@ -114,6 +114,7 @@ six==1.17.0
 stack-data==0.6.3
 statsmodels==0.15.0
 sympy==1.13.1
+tabulate==0.10.0
 threadpoolctl==3.8.0
 tifffile==2026.11.16
 torch==2.5.1
