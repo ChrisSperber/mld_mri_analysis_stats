@@ -349,3 +349,60 @@ def geodesic_subparcellate(
     result[wm_mask] = nearest_labels[wm_mask]
 
     return result
+
+
+def median_range(series):
+    """Format median and range."""
+    series = series.dropna()
+
+    if series.empty:
+        return "–"
+
+    return f"{series.median():.1f} ({series.min():.1f}–{series.max():.1f})"
+
+
+def median_iqr_range(series):
+    """Format median, interquartile interval and range."""
+    series = series.dropna()
+
+    if series.empty:
+        return "–"
+
+    return (
+        f"{series.median():.1f} "
+        f"[{series.quantile(0.25):.1f}–{series.quantile(0.75):.1f}]; "
+        f"({series.min():.1f}–{series.max():.1f})"
+    )
+
+
+def category_counts(series):
+    """Format counts of unique categories."""
+    counts = series.value_counts()
+
+    if counts.empty:
+        return "–"
+
+    return ", ".join(f"{category}: {n}" for category, n in counts.items())
+
+
+def describe_cohort(df):
+    """Calculate subject-level and session-level descriptive statistics.
+
+    Categorical characteristics are summarised at subject level, based on
+    the first included MRI session. Age and clinical scores are summarised
+    at session level. Missing values are omitted.
+    """
+    subjects = df.sort_values(Cols.DATE_MRI).drop_duplicates(Cols.SUBJECT_ID)
+    sessions_per_subject = df.groupby(Cols.SUBJECT_ID).size()
+
+    return {
+        "Total N sessions": len(df),
+        "Total N subjects": df[Cols.SUBJECT_ID].nunique(),
+        "Sessions per subject": median_range(sessions_per_subject),
+        "Age at MRI (years)": median_iqr_range(df["AgeMRI"]),
+        "MLD MRI score": median_iqr_range(df[Cols.MLD_MRI_SCORE]),
+        "GMFC": median_iqr_range(df[Cols.GMFC]),
+        "MLD form": category_counts(subjects[Cols.MLD_FORM]),
+        "Sex": category_counts(subjects[Cols.SEX]),
+        "Therapy type": category_counts(subjects[Cols.THERAPY_TYPE]),
+    }
