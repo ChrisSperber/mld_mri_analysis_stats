@@ -7,8 +7,8 @@ first included session. Age and clinical scores are reported at session level.
 
 Outputs:
 - CSV snapshot of selected sessions and clinical characteristics.
+- CSV reference table containing all master table columns for selected sessions.
 - Markdown document containing descriptive cohort statistics.
-
 """
 
 # %%
@@ -21,7 +21,8 @@ from mld_mri_stats.config import MASTER_DATA_CSV, NOT_AVAILABLE
 from mld_mri_stats.utils import SNAPSHOT_COLS, Cols, PathCols, describe_cohort
 
 SCRIPT_PATH = Path(__file__)
-CSV_PATH = SCRIPT_PATH.with_suffix(".csv")
+SNAPSHOT_PATH = SCRIPT_PATH.with_name(f"{SCRIPT_PATH.stem}_snapshot.csv")
+REFERENCE_PATH = SCRIPT_PATH.with_name(f"{SCRIPT_PATH.stem}_reference.csv")
 MD_PATH = SCRIPT_PATH.with_suffix(".md")
 
 
@@ -38,7 +39,15 @@ df = df.loc[is_patient_fod | is_control].copy()
 
 # Save sample snapshot
 df[SNAPSHOT_COLS].to_csv(
-    CSV_PATH,
+    SNAPSHOT_PATH,
+    sep=";",
+    index=False,
+    na_rep=NOT_AVAILABLE,
+)
+
+# Save full sample reference table
+df.to_csv(
+    REFERENCE_PATH,
     sep=";",
     index=False,
     na_rep=NOT_AVAILABLE,
@@ -92,7 +101,8 @@ with MD_PATH.open("w", encoding="utf-8") as file:
         "Missing values are omitted from descriptive statistics.\n"
     )
 
-print(f"Sample snapshot saved to: {CSV_PATH}")
+print(f"Sample snapshot saved to: {SNAPSHOT_PATH}")
+print(f"Sample reference saved to: {REFERENCE_PATH}")
 print(f"Descriptive statistics saved to: {MD_PATH}")
 
 # %%
