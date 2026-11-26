@@ -1,0 +1,67 @@
+TRACT-WISE STATISTICAL MAPPING
+==============================
+
+DATA SOURCES
+------------
+Sample reference: a_document_sample_reference.csv
+Imaging features: b_extract_tract_measures.csv
+
+SAMPLE
+------
+Group: patient
+N subjects: 28
+N sessions: 52
+N tracts: 17
+N MRI markers: 12
+N model comparisons: 204
+
+MODEL SPECIFICATION
+-------------------
+Null model: GMFC ~ AgeMRI + (1 | SubjectID)
+Full model: GMFC ~ AgeMRI + Marker + (1 | SubjectID)
+Estimation: maximum likelihood
+Effect size: incremental marginal R2
+Statistical inference: likelihood-ratio test
+
+MULTIPLE-COMPARISON CORRECTION
+------------------------------
+Correction method: holm
+Correction family: tracts within each MRI marker
+Tests per family: 17
+Alpha: 0.05
+
+BOOTSTRAPPING
+-------------
+Iterations per model comparison: 500
+Random seed: 9001
+Resampling unit: subject
+CI method: percentile bootstrap
+Confidence level: 0.95
+Minimum valid bootstrap iterations: 421
+Median valid bootstrap iterations: 500.0
+Maximum valid bootstrap iterations: 500
+
+INCLUDED TRACTS
+---------------
+CCI, CCII, CCIII, CCIV, CCV, CST_left, CST_right, IFOF_left, IFOF_right, ILF_left, ILF_right, SLFI_left, SLFI_right, SLFII_left, SLFII_right, SLFIII_left, SLFIII_right
+
+INCLUDED MRI MARKERS
+--------------------
+FA, MD, AK, MK, RK, NDI, ODI, FWF, FOD_integral, FD, FC, FDC
+
+SUMMARY OF STATISTICAL RESULTS
+------------------------------
+              Median delta R2  Maximum delta R2  Significant uncorrected  Significant corrected
+Marker
+FA                     0.2245            0.4520                       17                     12
+MD                     0.0311            0.1563                        5                      1
+AK                     0.0176            0.0776                        2                      0
+MK                     0.0219            0.1407                        4                      1
+RK                     0.0362            0.2394                        7                      4
+NDI                    0.0108            0.0864                        2                      0
+ODI                    0.3640            0.5542                       17                     17
+FWF                    0.0171            0.1939                        4                      1
+FOD_integral           0.1438            0.2347                       13                     10
+FD                     0.2003            0.4454                       17                     17
+FC                     0.1184            0.1740                       17                     17
+FDC                    0.1958            0.3535                       17                     17
