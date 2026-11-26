@@ -1,0 +1,51 @@
+TRACT-WISE MRI FEATURE EXTRACTION
+=================================
+
+Sample reference: a_document_sample_reference.csv
+Fixel metrics source: /home/chris/projects/mld_data_master_2026/derivatives/fixel_analysis/tract_metrics.csv
+
+N subjects: 47
+N sessions: 71
+N tracts: 17
+N MRI metrics: 12
+Expected rows: 1207
+Extracted rows: 1207
+Summary statistic: median
+
+FEATURE COMPLETENESS
+--------------------
+              Available  Missing
+FA                 1207        0
+MD                 1207        0
+AK                 1207        0
+MK                 1207        0
+RK                 1207        0
+NDI                1207        0
+ODI                1207        0
+FWF                1207        0
+FOD_integral       1207        0
+FD                 1207        0
+FC                 1207        0
+FDC                1207        0
+
+MISSING VALUES BY TRACT
+-----------------------
+              FA  MD  AK  MK  RK  NDI  ODI  FWF  FOD_integral  FD  FC  FDC
+Tract
+CCI            0   0   0   0   0    0    0    0             0   0   0    0
+CCII           0   0   0   0   0    0    0    0             0   0   0    0
+CCIII          0   0   0   0   0    0    0    0             0   0   0    0
+CCIV           0   0   0   0   0    0    0    0             0   0   0    0
+CCV            0   0   0   0   0    0    0    0             0   0   0    0
+CST_left       0   0   0   0   0    0    0    0             0   0   0    0
+CST_right      0   0   0   0   0    0    0    0             0   0   0    0
+IFOF_left      0   0   0   0   0    0    0    0             0   0   0    0
+IFOF_right     0   0   0   0   0    0    0    0             0   0   0    0
+ILF_left       0   0   0   0   0    0    0    0             0   0   0    0
+ILF_right      0   0   0   0   0    0    0    0             0   0   0    0
+SLFI_left      0   0   0   0   0    0    0    0             0   0   0    0
+SLFI_right     0   0   0   0   0    0    0    0             0   0   0    0
+SLFII_left     0   0   0   0   0    0    0    0             0   0   0    0
+SLFII_right    0   0   0   0   0    0    0    0             0   0   0    0
+SLFIII_left    0   0   0   0   0    0    0    0             0   0   0    0
+SLFIII_right   0   0   0   0   0    0    0    0             0   0   0    0
